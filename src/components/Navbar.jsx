@@ -2,12 +2,11 @@ import { useContext } from "react";
 import React, { useState } from "react";
 import { counterContext } from "/src/context/Context";
 
-export default function Navbar() {
+export default function Navbar({formattedDate}) {
   const value = useContext(counterContext);
   const [quantity, setQuantity] = useState(1); // State for quantity
 
-  const currentDate = new Date();
-  const formattedDate = currentDate.toLocaleDateString();
+  
 
   const handleQuantityChange = (e) => {
     setQuantity(e.target.value);

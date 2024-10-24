@@ -3,19 +3,15 @@ import React, { useState } from "react";
 import CurrencyImg from "/src/images/currency.svg"; // Ensure this path is correct
 import { RiDeleteBinLine } from "react-icons/ri";
 import { counterContext } from "/src/context/Context";
-
-export default function Item() {
-  const [tAmout, setTamout] = useState(0);
-  const [DAmout, setDamout] = useState(0);
+import PropTypes from 'prop-types';
+export default function Item({items,setItems,tAmout,setTamout,DAmout,setDamout,sum}) {
+  
   const value = useContext(counterContext);
 
-  // Initialize state with one item
-  const [items, setItems] = useState([
-    { name: "", description: "", quantity: 1, price: 0 },
-  ]);
+  
 
   const handleAdd = () => {
-    setItems([...items, { name: "", description: "", quantity: 1, price: 0 }]); // Add new item
+    setItems([...items, { name: "", description: "", quantity: 1, price: 0 }]); 
   };
 
   const handleChange = (e, i) => {
@@ -31,7 +27,7 @@ export default function Item() {
     setItems(updatedItems);
   };
 
-  const sum = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  
 
   useEffect(() => {
     const taxPercent = Number(value.tax) / 100;
@@ -176,3 +172,15 @@ export default function Item() {
     </>
   );
 }
+
+Item.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    description: PropTypes.string,
+    quantity: PropTypes.number,
+    price: PropTypes.number,
+    total: PropTypes.number,
+    
+  })).isRequired,
+  setItems: PropTypes.func.isRequired,
+};

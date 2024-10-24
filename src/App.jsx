@@ -20,6 +20,15 @@ function App() {
   const [Finvoice, setFinvoice] = useState("");
   const [Femail, setFemail] = useState("");
   const [Fadress, setFadress] = useState("");
+  const [tAmout, setTamout] = useState(0);
+  const [DAmout, setDamout] = useState(0);
+  const currentDate = new Date();
+  const formattedDate = currentDate.toLocaleDateString();
+  // Initialize state with one item
+  const [items, setItems] = useState([
+    { name: "", description: "", quantity: 1, price: 0 },
+  ]);
+  const sum = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
     <>
@@ -47,9 +56,9 @@ function App() {
       >
         <div className="w-screen bg-customTomato flex justify-center gap-6">
           <div className="w-7/12 bg-whiteColor mt-8 rounded-lg">
-            <Navbar />
+            <Navbar formattedDate={formattedDate} />
             <BillingForm />
-            <Item />
+            <Item items={items} setItems={setItems} tAmout={tAmout} setTamout={setTamout} DAmout={DAmout} setDamout={setDamout} sum={sum} />
           </div>
           <div className="w-64 h-72 mt-8">
             <Sidebar />
@@ -66,6 +75,11 @@ function App() {
           Finvoice={Finvoice}
           Femail={Femail}
           Fadress={Fadress}
+          items={items}
+          dateOfIssue={formattedDate}
+          tAmout={tAmout}
+          DAmout={DAmout}
+          subTotal={sum}
         />
 
         {/* <div className="pdf-viewer mt-8">
